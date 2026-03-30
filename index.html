@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opiniones No Solicitadas | Podcast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            --hero-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            --bg-light: #fdfbf7;
+            --bg-pink: #fff0f5;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --card-purple: #e8dff5;
+            --card-blue: #d4e6f1;
+            --card-red: #fadbd8;
+            --accent-pink: #ff758c;
+            --accent-purple: #7f8fa6;
+            --dark-footer: #1e272e;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 100px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+        }
+
+        a { text-decoration: none; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: var(--accent-pink);
+            color: white;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: var(--hero-gradient);
+            padding: 80px 0 100px;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #4a4a4a;
+        }
+
+        .hero-text h1 span {
+            color: var(--accent-pink);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .hero-img img {
+            width: 100%;
+            max-width: 500px;
+            display: block;
+            margin: 0 auto;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* EPISODIOS DESTACADOS */
+        .featured {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 50px;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .episode-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: left;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .episode-card.playing {
+            border: 2px solid var(--accent-pink);
+            background: linear-gradient(135deg, #fff5f7 0%, #ffffff 100%);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .bg-purple { background: #a29bfe; }
+        .bg-blue { background: #74b9ff; }
+        .bg-red { background: #ff7675; }
+
+        .episode-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .episode-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #b2bec3;
+            border-top: 1px solid #f1f1f1;
+            padding-top: 15px;
+        }
+
+        .play-btn-card {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-pink);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .play-btn-card:hover {
+            transform: scale(1.1);
+        }
+
+        /* SOBRE EL PODCAST */
+        .about {
+            background-color: var(--bg-pink);
+            padding: 80px 0;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .about-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-pill {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-green { background: #e0f7fa; color: #006064; }
+        .btn-pink { background: #ffebee; color: #c62828; }
+        .btn-blue { background: #e3f2fd; color: #1565c0; }
+
+        .about-img {
+            text-align: center;
+            position: relative;
+        }
+        
+        .mic-illustration {
+            width: 200px;
+            height: 200px;
+            background: url('https://cdn-icons-png.flaticon.com/512/25/25681.png') no-repeat center center;
+            background-size: contain;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .sb-1 { top: 20px; left: 20px; background: #ffeaa7; transform: rotate(-10deg); }
+        .sb-2 { top: 40px; right: 10px; background: #81ecec; transform: rotate(5deg); }
+        .sb-3 { bottom: 20px; left: 40px; background: #fab1a0; transform: rotate(-5deg); }
+
+        /* TESTIMONIOS */
+        .testimonials {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: left;
+            border: 1px solid #f0f0f0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ddd;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .user-details h4 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .stars { color: #f1c40f; font-size: 0.8rem; }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--dark-footer);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: var(--accent-pink);
+        }
+
+        .footer-col p {
+            color: #b2bec3;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent-pink);
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b2bec3;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background: var(--accent-pink);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 0.8rem;
+            color: #636e72;
+        }
+
+        /* AUDIO PLAYER FIJO */
+        .audio-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            padding: 20px;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .audio-player.active {
+            transform: translateY(0);
+        }
+
+        .player-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .player-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .player-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .player-info p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .control-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+        }
+
+        .control-btn:hover {
+            background: var(--accent-pink);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .control-btn.play {
+            width: 55px;
+            height: 55px;
+            background: var(--accent-pink);
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .control-btn.play:hover {
+            background: #ff5a75;
+        }
+
+        .player-progress {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-pink);
+            width: 0%;
+            border-radius: 3px;
+            transition: width 0.1s;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        .player-volume {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 150px;
+        }
+
+        /* CORREGIDO: Agregada propiedad 'appearance' estándar */
+        .volume-slider {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 100px;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .close-player {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .close-player:hover {
+            color: var(--accent-pink);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content, .about-container, .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-img { margin-top: 40px; }
+            
+            .about-buttons { justify-content: center; }
+            .about-img { order: -1; margin-bottom: 30px; }
+            
+            .footer-grid { gap: 30px; }
+
+            .player-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .player-progress {
+                order: 3;
+                width: 100%;
+                min-width: 100%;
+            }
+
+            .player-volume {
+                display: none;
+            }
+
+            .control-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            .control-btn.play {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Animación de ondas cuando reproduce */
+        .playing-animation {
+            display: none;
+            gap: 3px;
+            align-items: flex-end;
+            height: 20px;
+            margin-left: 10px;
+        }
+
+        .playing-animation.active {
+            display: flex;
+        }
+
+        .wave {
+            width: 3px;
+            background: var(--accent-pink);
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .wave:nth-child(1) { height: 8px; animation-delay: 0s; }
+        .wave:nth-child(2) { height: 15px; animation-delay: 0.1s; }
+        .wave:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+        .wave:nth-child(4) { height: 18px; animation-delay: 0.3s; }
+        .wave:nth-child(5) { height: 10px; animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUDIO ELEMENT (oculto) -->
+    <audio id="podcastAudio" preload="none">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>El podcast que <span>nadie pidió</span>, pero todos necesitan</h1>
+                <p>Hagamos de todo lo que otros callan, se dice y se convierte en viral.</p>
+                <button class="btn btn-primary" onclick="scrollToSection('featured')">
+                    <i class="fas fa-play" style="margin-right: 10px;"></i> Escuchar ahora
+                </button>
+            </div>
+            <div class="hero-img">
+                <img src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png" alt="Gente riendo podcast">
+            </div>
+        </div>
+    </header>
+
+    <!-- EPISODIOS DESTACADOS -->
+    <section id="featured" class="featured">
+        <div class="container">
+            <h2 class="section-title">Episodios Destacados</h2>
+            <p class="section-subtitle">Los mejores momentos de nuestras conversaciones en vivo</p>
+            
+            <div class="episodes-grid">
+                <!-- Card 1 -->
+                <article class="episode-card" onclick="playEpisode(0)" data-episode="0">
+                    <div class="card-icon bg-purple">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <div>
+                        <h3>¿Los influencers son reales?</h3>
+                        <p>Analizamos la vida real detrás de las fotos perfectas y los filtros de Instagram.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span><i class="far fa-clock"></i> 45 min</span>
+                        <button class="play-btn-card" onclick="event.stopPropagation(); togglePlay()">
+                            <i class="fas fa-play" id="cardIcon0"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="episode-card" onclick="playEpisode(1)" data-episode="1">
+                    <div class="card-icon bg-blue">
+                        <i class="fas fa-cloud-rain"></i>
+                    </div>
+                    <div>
+                        <h3>Citas en 2024: Manual de supervivencia</h3>
+                        <p>Todo lo que pasó mal con las apps de citas y por qué el amor está en crisis.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span><i class="far fa-clock"></i> 52 min</span>
+                        <button class="play-btn-card" onclick="event.stopPropagation(); togglePlay()">
+                            <i class="fas fa-play" id="cardIcon1"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="episode-card" onclick="playEpisode(2)" data-episode="2">
+                    <div class="card-icon bg-red">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                        <h3>Tendencias que odiamos pero seguimos</h3>
+                        <p>Desde TikTok hasta la moda rápida. ¿Por qué hacemos cosas que sabemos que están mal?</p>
+                    </div>
+                    <div class="card-footer">
+                        <span><i class="far fa-clock"></i> 38 min</span>
+                        <button class="play-btn-card" onclick="event.stopPropagation(); togglePlay()">
+                            <i class="fas fa-play" id="cardIcon2"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE EL PODCAST -->
+    <section class="about">
+        <div class="container about-container">
+            <div class="about-text">
+                <h2>Sobre el Podcast</h2>
+                <p><strong>Opiniones No Solicitadas</strong> es el espacio donde decimos lo que todos piensan pero nadie se atreve a expresar. Sin filtros, sin censura, pero siempre con humor.</p>
+                <p>Cada episodio es una montaña rusa de debates, risas y momentos incómodos que te harán cuestionar todo lo que creías saber sobre la cultura pop, las relaciones y la vida en general.</p>
+                
+                <div class="about-buttons">
+                    <button class="btn-pill btn-green">Episodios recientes</button>
+                    <button class="btn-pill btn-pink">Mejor Audio</button>
+                    <button class="btn-pill btn-blue">Califícanos</button>
+                </div>
+            </div>
+            <div class="about-img">
+                <div class="mic-illustration"></div>
+                <div class="speech-bubble sb-1">¡No lo creo!</div>
+                <div class="speech-bubble sb-2">¿En serio?</div>
+                <div class="speech-bubble sb-3">Opinión real</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros oyentes</h2>
+            <p class="section-subtitle">Testimonios reales de gente que ya no puede vivir sin nosotros</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria" class="avatar">
+                        <div class="user-details">
+                            <h4>María González</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Totalmente el podcast que dice lo que todos pensamos. Me río a carcajadas en el metro."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos" class="avatar">
+                        <div class="user-details">
+                            <h4>Carlos Ruiz</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Totalmente honesto y divertido. Es como tener una conversación con tus mejores amigos."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana" class="avatar">
+                        <div class="user-details">
+                            <h4>Ana López</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"No puedo parar de escucharlo. El análisis pop de actualidad en el episodio sobre moda fue increíble."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Opiniones No Solicitadas</h3>
+                    <p>El podcast que no te pidió, pero todos necesitan. Opiniones reales, debates locos y mucha risa para tu día a día.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-spotify"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Episodios</a></li>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Tienda Merch</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <form class="contact-form" onsubmit="event.preventDefault(); alert('¡Mensaje enviado!');">
+                        <input type="text" placeholder="Tu email" required>
+                        <textarea rows="3" placeholder="Tu mensaje"></textarea>
+                        <button type="submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Opiniones No Solicitadas. Todos los derechos reservados. Hecho con <i class="fas fa-heart" style="color: var(--accent-pink);"></i> y mucha cafeína.
+            </div>
+        </div>
+    </footer>
+
+    <!-- REPRODUCTOR DE AUDIO FIJO -->
+    <div class="audio-player" id="audioPlayer">
+        <button class="close-player" onclick="closePlayer()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="player-container">
+            <div class="player-info">
+                <h4 id="playerTitle">Selecciona un episodio</h4>
+                <p id="playerEpisode">Episodio destacado</p>
+                <div class="playing-animation" id="playingAnimation">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+            </div>
+            
+            <div class="player-controls">
+                <button class="control-btn" onclick="skipBackward()" title="Retroceder 10s">
+                    <i class="fas fa-backward"></i>
+                </button>
+                
+                <button class="control-btn play" onclick="togglePlay()" id="mainPlayBtn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                
+                <button class="control-btn" onclick="stopAudio()" title="Detener">
+                    <i class="fas fa-stop"></i>
+                </button>
+                
+                <button class="control-btn" onclick="skipForward()" title="Avanzar 10s">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </div>
+
+            <div class="player-progress">
+                <div class="progress-bar" onclick="seek(event)">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+
+            <div class="player-volume">
+                <i class="fas fa-volume-up" id="volumeIcon"></i>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70" oninput="changeVolume(this.value)">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const audio = document.getElementById('podcastAudio');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayBtn = document.getElementById('mainPlayBtn');
+        const progressFill = document.getElementById('progressFill');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const playerTitle = document.getElementById('playerTitle');
+        const playingAnimation = document.getElementById('playingAnimation');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeIcon = document.getElementById('volumeIcon');
+
+        // Episodios disponibles
+        const episodes = [
+            { title: "¿Los influencers son reales?", episode: "Ep. 12 - 45 min" },
+            { title: "Citas en 2024: Manual de supervivencia", episode: "Ep. 13 - 52 min" },
+            { title: "Tendencias que odiamos pero seguimos", episode: "Ep. 14 - 38 min" }
+        ];
+
+        let currentEpisodeIndex = 0;
+        let isPlaying = false;
+
+        // Función para reproducir episodio
+        function playEpisode(index) {
+            currentEpisodeIndex = index;
+            
+            // Actualizar información del reproductor
+            playerTitle.textContent = episodes[index].title;
+            document.getElementById('playerEpisode').textContent = episodes[index].episode;
+            
+            // Mostrar reproductor
+            audioPlayer.classList.add('active');
+            
+            // Actualizar iconos de las tarjetas
+            updateCardIcons(index);
+            
+            // Cargar y reproducir audio
+            // Nota: En producción, cada episodio tendría su propia URL
+            // audio.src = episodes[index].audioUrl;
+            
+            if (!isPlaying) {
+                togglePlay();
+            }
+            
+            // Scroll suave hacia el reproductor en móviles
+            if (window.innerWidth < 768) {
+                audioPlayer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+        }
+
+        // Toggle Play/Pause
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                isPlaying = true;
+                mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                playingAnimation.classList.add('active');
+                updateCardIcons(currentEpisodeIndex, true);
+            } else {
+                audio.pause();
+                isPlaying = false;
+                mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+                playingAnimation.classList.remove('active');
+                updateCardIcons(currentEpisodeIndex, false);
+            }
+        }
+
+        // Stop audio
+        function stopAudio() {
+            audio.pause();
+            audio.currentTime = 0;
+            isPlaying = false;
+            mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+            progressFill.style.width = '0%';
+            currentTimeEl.textContent = '0:00';
+            playingAnimation.classList.remove('active');
+            updateCardIcons(currentEpisodeIndex, false);
+        }
+
+        // Actualizar iconos de las tarjetas
+        function updateCardIcons(index, playing = false) {
+            // Resetear todos los iconos
+            document.querySelectorAll('.episode-card').forEach((card, i) => {
+                card.classList.remove('playing');
+                const icon = document.getElementById(`cardIcon${i}`);
+                if (icon) {
+                    icon.className = 'fas fa-play';
+                }
+            });
+            
+            // Actualizar episodio activo
+            if (playing) {
+                const activeCard = document.querySelector(`[data-episode="${index}"]`);
+                if (activeCard) {
+                    activeCard.classList.add('playing');
+                    const icon = document.getElementById(`cardIcon${index}`);
+                    if (icon) {
+                        icon.className = 'fas fa-pause';
+                    }
+                }
+            }
+        }
+
+        // Actualizar progreso
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = progress + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            
+            if (audio.duration) {
+                durationEl.textContent = formatTime(audio.duration);
+            }
+        });
+
+        // Buscar en la barra de progreso
+        function seek(event) {
+            const progressBar = event.currentTarget;
+            const clickPosition = event.offsetX / progressBar.offsetWidth;
+            audio.currentTime = clickPosition * audio.duration;
+        }
+
+        // Cambiar volumen
+        function changeVolume(value) {
+            audio.volume = value / 100;
+            
+            // Actualizar icono de volumen
+            if (value == 0) {
+                volumeIcon.className = 'fas fa-volume-mute';
+            } else if (value < 50) {
+                volumeIcon.className = 'fas fa-volume-down';
+            } else {
+                volumeIcon.className = 'fas fa-volume-up';
+            }
+        }
+
+        // Skip forward/backward
+        function skipForward() {
+            audio.currentTime += 10;
+        }
+
+        function skipBackward() {
+            audio.currentTime -= 10;
+        }
+
+        // Formatear tiempo
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Cerrar reproductor
+        function closePlayer() {
+            stopAudio();
+            audioPlayer.classList.remove('active');
+        }
+
+        // Cuando termina el audio
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+            playingAnimation.classList.remove('active');
+            updateCardIcons(currentEpisodeIndex, false);
+        });
+
+        // Scroll suave
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Inicializar volumen
+        audio.volume = 0.7;
+
+        // Efecto hover en tarjetas de testimonios
+        document.querySelectorAll('.testimonial-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.02)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
